@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:tc:mysql:5.7://localhost:3306/user_milestone
+    dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show_sql: false
+    openInView: false
+    hibernate:
+      ddl-auto: none
+kafka:
+  defaultConcurrency: 1
+  server: ${KAFKA_HOST:localhost:9092}
+  enabled: ${KAFKA_ENABLED:true}
+  topics:
+    vxpPushParticipant: event.vxp.push.participant
+    acknowledgementEvent: event.vxp.push.participant.ack
+
+vibrent:
+  oidc-auth:
+    keycloak:
+      baseAuthUrl: ${KEYCLOAK_BASEURL:https://keycloak-dev.vibrenthealth.com/auth}
+      resourceId: ${KEYCLOAK_RESOURCEID:participant}
+      participantRealm: ${KEYCLOAK_PARTICIPANT_REALM:default_participant_realm}
+      enterpriseRealm: ${KEYCLOAK_ENTERPRISE_REALM:default_realm}
+      enabled: ${KEYCLOAK_PARTICIPANT_ENABLED:true}

@@ -1,0 +1,41 @@
+---
+spring:
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/user_milestone?autoreconnect=true&enabledTLSProtocols=TLSv1,TLSv1.1,TLSv1.2
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+
+kafka:
+  defaultConcurrency: 1
+  server: ${KAFKA_HOST:localhost:9092}
+  enabled: ${KAFKA_ENABLED:true}
+  autoStartUp: true
+  topics:
+    vxpPushParticipant: event.vxp.push.participant
+    acknowledgementEvent: event.vxp.push.participant.ack
+
+swagger:
+  enabled: ${SWAGGER_ENABLED:false}
+
+# Actuator keys for enabling liveness and readiness endpoints.
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
+vibrent:
+  oidc-auth:
+    keycloak:
+      baseAuthUrl: ${KEYCLOAK_BASEURL:https://keycloak-dev.vibrenthealth.com/auth}
+      resourceId: ${KEYCLOAK_RESOURCEID:participant}
+      participantRealm: ${KEYCLOAK_PARTICIPANT_REALM:default_participant_realm}
+      enterpriseRealm: ${KEYCLOAK_ENTERPRISE_REALM:default_realm}
+      enabled: ${KEYCLOAK_PARTICIPANT_ENABLED:true}
+
